@@ -1,8 +1,9 @@
 
 import React from 'react';
-import { SHOWS } from '../constants';
+import { useAppContext } from '../AppContext';
 
 const Schedule: React.FC = () => {
+  const { shows } = useAppContext();
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   return (
@@ -28,13 +29,13 @@ const Schedule: React.FC = () => {
       </div>
 
       <div className="space-y-6">
-        {SHOWS.concat(SHOWS).map((show, idx) => (
+        {shows.map((show, idx) => (
           <div
-            key={`${show.id}-${idx}`}
+            key={show.id}
             className="group glass rounded-2xl p-6 flex flex-col md:flex-row items-center gap-8 border border-white/5 hover:border-indigo-500/30 transition-all"
           >
             <div className="text-2xl font-outfit font-bold text-slate-500 w-32 md:text-right">
-              {idx % 2 === 0 ? '08:00 AM' : '02:00 PM'}
+              {show.time.split(' - ')[0]}
             </div>
             <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
               <img src={show.image} alt={show.title} className="w-full h-full object-cover" />

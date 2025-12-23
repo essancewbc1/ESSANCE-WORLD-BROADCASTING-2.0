@@ -1,16 +1,18 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SHOWS, CURRENT_TRACK } from '../constants';
+import { useAppContext } from '../AppContext';
 
 const Home: React.FC = () => {
+  const { shows, currentTrack, homeConfig } = useAppContext();
+  
   return (
     <div className="space-y-16 animate-fadeIn">
       {/* Hero Section */}
       <section className="relative h-[600px] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://picsum.photos/seed/radiohero/1920/1080"
+            src={homeConfig.heroBg}
             alt="Studio background"
             className="w-full h-full object-cover brightness-[0.3]"
           />
@@ -23,10 +25,14 @@ const Home: React.FC = () => {
               Live from Orbit
             </span>
             <h1 className="text-6xl md:text-8xl font-outfit font-extrabold text-white mb-6 leading-none">
-              Feel the <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">Wave.</span>
+              {homeConfig.heroTitle.split(' ').map((word, i) => (
+                word.toLowerCase().includes('wave') ? (
+                  <span key={i} className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">{word} </span>
+                ) : word + ' '
+              ))}
             </h1>
             <p className="text-xl text-slate-300 mb-8 max-w-lg leading-relaxed">
-              Experience curated sounds from the future of electronic music. No ads, just pure audio excellence.
+              {homeConfig.heroSubtitle}
             </p>
             <div className="flex gap-4">
               <button className="px-8 py-4 bg-white text-slate-900 rounded-full font-bold text-lg hover:bg-slate-100 transition-all active:scale-95 shadow-xl shadow-white/10">
@@ -45,7 +51,7 @@ const Home: React.FC = () => {
         <div className="glass rounded-3xl p-8 flex flex-col md:flex-row items-center gap-8 shadow-2xl">
           <div className="relative w-48 h-48 flex-shrink-0 group">
             <img
-              src={CURRENT_TRACK.albumArt}
+              src={currentTrack.albumArt}
               alt="Album art"
               className="w-full h-full object-cover rounded-2xl shadow-lg group-hover:scale-105 transition-transform duration-500"
             />
@@ -62,11 +68,11 @@ const Home: React.FC = () => {
               <span className="flex h-2 w-2 rounded-full bg-red-500 animate-ping"></span>
               <span className="text-red-500 text-xs font-bold uppercase tracking-wider">Now Playing</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-outfit font-bold text-white mb-2">{CURRENT_TRACK.title}</h2>
-            <p className="text-xl text-slate-400 mb-6">{CURRENT_TRACK.artist}</p>
+            <h2 className="text-3xl md:text-4xl font-outfit font-bold text-white mb-2">{currentTrack.title}</h2>
+            <p className="text-xl text-slate-400 mb-6">{currentTrack.artist}</p>
             <div className="flex items-center gap-4 text-sm font-medium text-slate-500 justify-center md:justify-start">
-              <span className="bg-slate-800 px-3 py-1 rounded text-slate-300">Synthwave</span>
-              <span className="bg-slate-800 px-3 py-1 rounded text-slate-300">128 BPM</span>
+              <span className="bg-slate-800 px-3 py-1 rounded text-slate-300">Lossless Audio</span>
+              <span className="bg-slate-800 px-3 py-1 rounded text-slate-300">NovaWave HD</span>
             </div>
           </div>
         </div>
@@ -83,7 +89,7 @@ const Home: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {SHOWS.map((show) => (
+          {shows.slice(0, 4).map((show) => (
             <div key={show.id} className="group cursor-pointer">
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-4">
                 <img

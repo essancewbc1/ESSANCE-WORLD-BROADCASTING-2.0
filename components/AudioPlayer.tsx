@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import { CURRENT_TRACK } from '../constants';
+import { useAppContext } from '../AppContext';
 
 const AudioPlayer: React.FC = () => {
+  const { currentTrack } = useAppContext();
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(80);
   const [progress, setProgress] = useState(30);
@@ -23,11 +24,11 @@ const AudioPlayer: React.FC = () => {
         {/* Track Info */}
         <div className="flex items-center gap-4 w-1/3 min-w-0">
           <div className={`w-12 h-12 md:w-16 md:h-16 rounded-lg overflow-hidden flex-shrink-0 shadow-lg ${isPlaying ? 'animate-pulse' : ''}`}>
-            <img src={CURRENT_TRACK.albumArt} alt="Current track" className="w-full h-full object-cover" />
+            <img src={currentTrack.albumArt} alt="Current track" className="w-full h-full object-cover" />
           </div>
           <div className="min-w-0">
-            <h4 className="text-white font-bold text-sm md:text-base truncate">{CURRENT_TRACK.title}</h4>
-            <p className="text-slate-400 text-xs md:text-sm truncate">{CURRENT_TRACK.artist}</p>
+            <h4 className="text-white font-bold text-sm md:text-base truncate">{currentTrack.title}</h4>
+            <p className="text-slate-400 text-xs md:text-sm truncate">{currentTrack.artist}</p>
           </div>
         </div>
 
@@ -96,11 +97,6 @@ const AudioPlayer: React.FC = () => {
               className="w-full h-1 bg-slate-800 rounded-full appearance-none cursor-pointer accent-indigo-500"
             />
           </div>
-          <button className="text-slate-400 hover:text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-            </svg>
-          </button>
         </div>
       </div>
     </div>

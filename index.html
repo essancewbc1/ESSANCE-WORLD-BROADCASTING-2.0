@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             font-family: 'Inter', sans-serif;
             background-color: #0f172a;
@@ -34,6 +37,24 @@
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #475569;
+        }
+
+        @keyframes admin-pulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(99, 102, 241, 0)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.6)); }
+        }
+        .animate-admin-active {
+            animation: admin-pulse 2s infinite ease-in-out;
+            color: #818cf8 !important;
+        }
+        
+        @keyframes admin-spin-working {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-admin-working {
+            animation: admin-spin-working 2s infinite linear;
+            color: #c084fc !important;
         }
     </style>
 <script type="importmap">

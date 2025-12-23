@@ -1,13 +1,16 @@
 
 import React from 'react';
+import { useAppContext } from '../AppContext';
 
 const About: React.FC = () => {
+  const { aboutConfig } = useAppContext();
+  
   return (
     <div className="max-w-7xl mx-auto px-4 py-16 animate-fadeIn">
       <div className="max-w-3xl mx-auto text-center mb-20">
-        <h1 className="text-5xl font-outfit font-extrabold text-white mb-8">Beyond the Airwaves</h1>
+        <h1 className="text-5xl font-outfit font-extrabold text-white mb-8">{aboutConfig.title}</h1>
         <p className="text-2xl text-indigo-400 font-medium mb-12">
-          NovaWave isn't just a radio station; it's a digital architecture for sound.
+          {aboutConfig.visionTitle}
         </p>
       </div>
 
@@ -18,22 +21,22 @@ const About: React.FC = () => {
         <div className="space-y-6">
           <h2 className="text-3xl font-outfit font-bold text-white">Our Vision</h2>
           <p className="text-slate-400 leading-relaxed text-lg">
-            Founded in 2024, NovaWave was built on the principle that music discovery should be cinematic. We curate the sounds of tomorrow, focusing on atmosphere, rhythm, and technical perfection.
+            {aboutConfig.description1}
           </p>
           <p className="text-slate-400 leading-relaxed text-lg">
-            Our broadcasts are strictly high-fidelity, streaming at 320kbps to ensure that every layer of production reaches your ears exactly as the artist intended.
+            {aboutConfig.description2}
           </p>
           <div className="pt-4 flex gap-8">
             <div>
-              <p className="text-3xl font-outfit font-extrabold text-white">24/7</p>
+              <p className="text-3xl font-outfit font-extrabold text-white">{aboutConfig.stats.ops}</p>
               <p className="text-slate-500 text-sm uppercase font-bold tracking-widest">Global Ops</p>
             </div>
             <div>
-              <p className="text-3xl font-outfit font-extrabold text-white">12+</p>
+              <p className="text-3xl font-outfit font-extrabold text-white">{aboutConfig.stats.residencies}</p>
               <p className="text-slate-500 text-sm uppercase font-bold tracking-widest">Residencies</p>
             </div>
             <div>
-              <p className="text-3xl font-outfit font-extrabold text-white">∞ </p>
+              <p className="text-3xl font-outfit font-extrabold text-white">{aboutConfig.stats.soundscapes}</p>
               <p className="text-slate-500 text-sm uppercase font-bold tracking-widest">Soundscapes</p>
             </div>
           </div>

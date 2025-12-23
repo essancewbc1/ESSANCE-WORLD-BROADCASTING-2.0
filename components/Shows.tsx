@@ -1,8 +1,10 @@
 
 import React from 'react';
-import { SHOWS } from '../constants';
+import { useAppContext } from '../AppContext';
 
 const Shows: React.FC = () => {
+  const { shows } = useAppContext();
+  
   return (
     <div className="max-w-7xl mx-auto px-4 py-16 animate-fadeIn">
       <div className="mb-16">
@@ -13,7 +15,7 @@ const Shows: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        {SHOWS.map((show) => (
+        {shows.map((show) => (
           <div key={show.id} className="group glass rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-indigo-500/10 transition-all border border-white/5">
             <div className="h-64 overflow-hidden relative">
               <img
@@ -30,7 +32,7 @@ const Shows: React.FC = () => {
             <div className="p-8">
               <p className="text-slate-300 leading-relaxed mb-6 italic">"{show.description}"</p>
               <div className="flex flex-wrap gap-2 mb-8">
-                {show.genre.map((g) => (
+                {show.genre?.map((g) => (
                   <span key={g} className="px-3 py-1 bg-slate-800 rounded text-xs font-bold text-slate-400 uppercase">{g}</span>
                 ))}
               </div>

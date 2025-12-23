@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { getAIRecommendation } from '../geminiService';
 import { ChatMessage } from '../types';
+import { useAppContext } from '../AppContext';
 
 interface AIAssistantProps {
   isOpen: boolean;
@@ -9,8 +10,9 @@ interface AIAssistantProps {
 }
 
 const AIAssistant: React.FC<AIAssistantProps> = ({ isOpen, onClose }) => {
+  const { setIsCartOpen } = useAppContext();
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { role: 'model', text: 'Hey there! I am your NovaWave AI guide. Need a track recommendation or want to know more about our DJs?' }
+    { role: 'model', text: 'Hey there! I am your NovaWave AI guide. Need a track recommendation, want to know about our DJs, or view your cart?' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +36,13 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ isOpen, onClose }) => {
     setIsLoading(true);
 
     const aiResponse = await getAIRecommendation(userMsg);
-    setMessages(prev => [...prev, { role: 'model', text: aiResponse }]);
+    
+    if (aiResponse.triggerCart) {
+      onClose(); // Close assistant when opening cart for better UX
+      setIsCartOpen(true);
+    }
+
+    setMessages(prev => [...prev, { role: 'model', text: aiResponse.text }]);
     setIsLoading(false);
   };
 
