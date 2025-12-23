@@ -1,0 +1,7 @@
+{
+  "name": "NovaWave Radio",
+  "description": "A premium, modern internet radio station platform featuring live streaming, interactive schedules, DJ spotlights, and an AI-powered music discovery assistant.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
